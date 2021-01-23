@@ -3,7 +3,6 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-
 }
 
 android {
@@ -33,6 +32,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 apply from: "$rootDir/deps/deps.gradle"
 dependencies {
@@ -44,6 +46,9 @@ dependencies {
     api androidx.constraint
     api navigation.navigation
     api navigation.navigationKtx
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -79,4 +84,7 @@ dependencies {
     api rx.rxAndroid
     api rx.rxJava2
     api rx.rxAdapter
+
+    api "androidx.room:room-rxjava2:2.2.6"
 }
+
