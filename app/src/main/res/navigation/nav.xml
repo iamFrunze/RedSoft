@@ -6,8 +6,29 @@
     app:startDestination="@id/searchProductFragment">
 
     <fragment
+        android:id="@+id/currentProductFragment"
+        android:name="com.byfrunze.redsoft.presentation.screens.current_product.CurrentProductFragment"
+        android:label="Продукт"
+        tools:layout="@layout/current_product_fragment" >
+        <action
+            android:id="@+id/action_currentProductFragment_to_searchProductFragment"
+            app:destination="@id/searchProductFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
         android:id="@+id/searchProductFragment"
         android:name="com.byfrunze.redsoft.presentation.screens.search_product.SearchProductFragment"
         android:label="search_product_fragment"
-        tools:layout="@layout/search_product_fragment" />
+        tools:layout="@layout/search_product_fragment" >
+        <action
+            android:id="@+id/action_searchProductFragment_to_currentProductFragment"
+            app:destination="@id/currentProductFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
 </navigation>

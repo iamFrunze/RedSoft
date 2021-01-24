@@ -10,64 +10,75 @@
     android:layout_marginBottom="8dp"
     app:cardCornerRadius="14dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/productImageView"
             android:layout_width="wrap_content"
             android:layout_height="86dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="3"
-            tools:src="@drawable/placeholder" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/placeholder" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/addCartBtn"
+            app:layout_constraintStart_toEndOf="@id/productImageView"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/categoryTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textSize="14sp"
                 tools:text="Категория" />
 
             <TextView
                 android:id="@+id/productTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:textColor="@color/black"
-                android:textSize="18dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 tools:text="Продукт 1" />
 
             <TextView
                 android:id="@+id/producerTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="8dp"
                 tools:text="Производитель" />
 
             <TextView
                 android:id="@+id/priceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:textColor="@color/price_blue"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 tools:text="4564" />
         </LinearLayout>
 
+
+
         <ImageButton
+            android:id="@+id/addCartBtn"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="bottom"
@@ -75,6 +86,8 @@
             android:layout_marginBottom="16dp"
             android:background="@drawable/add_card_background"
             android:padding="4dp"
-            android:src="@drawable/ic_baseline_add_shopping_cart_16" />
-    </LinearLayout>
+            android:src="@drawable/ic_baseline_add_shopping_cart_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

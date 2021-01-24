@@ -2,8 +2,10 @@ package com.byfrunze.redsoft.presentation.helpers
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import dagger.Provides
 import javax.inject.Inject
 import javax.inject.Provider
+import javax.inject.Singleton
 
 class ViewModelFactory @Inject constructor(
     private val viewModels: MutableMap<Class<out ViewModel>,
