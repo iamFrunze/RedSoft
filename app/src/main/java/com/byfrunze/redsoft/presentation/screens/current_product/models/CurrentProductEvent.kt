@@ -3,7 +3,7 @@ package com.byfrunze.redsoft.presentation.screens.current_product.models
 
 sealed class CurrentProductEvent {
     class ScreenShow(val isAddToCart: Boolean) : CurrentProductEvent()
-    class AddToCart(val count: Int) : CurrentProductEvent()
+    class AddToCart(val count: Int, val amount: Int) : CurrentProductEvent()
     class RemoveFromCart(val count: Int) : CurrentProductEvent()
 
 }

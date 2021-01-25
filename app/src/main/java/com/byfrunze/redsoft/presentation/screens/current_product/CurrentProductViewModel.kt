@@ -20,7 +20,7 @@ class CurrentProductViewModel @ViewModelInject constructor(
     override fun obtainEvent(viewEvent: CurrentProductEvent) {
         when (viewEvent) {
             is CurrentProductEvent.ScreenShow -> screenShow(viewEvent.isAddToCart)
-            is CurrentProductEvent.AddToCart -> addToCart(viewEvent.count)
+            is CurrentProductEvent.AddToCart -> addToCart(viewEvent.count, viewEvent.amount)
             is CurrentProductEvent.RemoveFromCart -> removeFromCart(viewEvent.count)
         }
     }
@@ -37,9 +37,11 @@ class CurrentProductViewModel @ViewModelInject constructor(
         )
     }
 
-    private fun addToCart(count: Int) {
-        val newCount = count + 1
-        viewState = viewState.copy(count = newCount)
+    private fun addToCart(count: Int, amount: Int) {
+        if (count < amount) {
+            val newCount = count + 1
+            viewState = viewState.copy(count = newCount)
+        }
     }
 
     private fun removeFromCart(count: Int) {

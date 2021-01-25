@@ -42,7 +42,7 @@ class CurrentProductFragment : Fragment(R.layout.current_product_fragment) {
     lateinit var counterProductLinearLayout: LinearLayout
     lateinit var loader: ProgressBar
     lateinit var content: ConstraintLayout
-
+    var product: Product? = null
     lateinit var binding: CurrentProductFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,10 +58,20 @@ class CurrentProductFragment : Fragment(R.layout.current_product_fragment) {
         }
         var count = 0
         addToCartBtn.setOnClickListener {
-            viewModel.obtainEvent(CurrentProductEvent.AddToCart(count = count++))
+            viewModel.obtainEvent(
+                CurrentProductEvent.AddToCart(
+                    count = count++,
+                    product?.amount ?: 0
+                )
+            )
         }
         plusProductBtn.setOnClickListener {
-            viewModel.obtainEvent(CurrentProductEvent.AddToCart(count = count++))
+            viewModel.obtainEvent(
+                CurrentProductEvent.AddToCart(
+                    count = count++,
+                    product?.amount ?: 0
+                )
+            )
         }
         minusProductBtn.setOnClickListener {
             viewModel.obtainEvent(CurrentProductEvent.RemoveFromCart(count = count--))
@@ -94,30 +104,32 @@ class CurrentProductFragment : Fragment(R.layout.current_product_fragment) {
     }
 
     private fun setupInfo(isAddToCart: Boolean, count: Int) {
-        val product = arguments?.get("product") as Product
-        toolbar.title = product.title
-        toolbar.setTitleTextColor(Color.WHITE)
-        if (isAddToCart) {
-            counterProductLinearLayout.visibility = View.VISIBLE
-            addToCartBtn.visibility = View.GONE
-            counterProductTextView.text = "$count шт"
-        } else {
-            counterProductLinearLayout.visibility = View.GONE
-            addToCartBtn.visibility = View.VISIBLE
+        product = arguments?.get("product") as Product
+        product?.let { product ->
+            toolbar.title = product.title
+            toolbar.setTitleTextColor(Color.WHITE)
+            if (isAddToCart) {
+                counterProductLinearLayout.visibility = View.VISIBLE
+                addToCartBtn.visibility = View.GONE
+                counterProductTextView.text = "$count шт"
+            } else {
+                counterProductLinearLayout.visibility = View.GONE
+                addToCartBtn.visibility = View.VISIBLE
+            }
+            titleTextView.text = product.title
+            producerTextView.text = product.producer
+            Glide.with(binding.productImageView)
+                .load(product.image_url)
+                .placeholder(R.drawable.placeholder)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .centerCrop()
+                .into(binding.productImageView)
+            descriptionTextView.text = product.short_description
+            var categoryBuffer = ""
+            for (category in product.categories) categoryBuffer += category.title + '\n'
+            categoriesTextView.text = categoryBuffer
+            priceTextView.text = "${product.price} P"
         }
-        titleTextView.text = product.title
-        producerTextView.text = product.producer
-        Glide.with(binding.productImageView)
-            .load(product.image_url)
-            .placeholder(R.drawable.placeholder)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .centerCrop()
-            .into(binding.productImageView)
-        descriptionTextView.text = product.short_description
-        var categoryBuffer = ""
-        for (category in product.categories) categoryBuffer += category.title + '\n'
-        categoriesTextView.text = categoryBuffer
-        priceTextView.text = "${product.price} P"
     }
 
     private fun bindViewState(viewState: CurrentProductViewState) {
